@@ -1,7 +1,11 @@
 package application;
 
 import chess.ChessPiece;
+import chess.ChessPosition;
 import chess.Color;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class UI {
     // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -52,6 +56,24 @@ public class UI {
             }
         }
         System.out.print(" ");
+    }
+
+    public static ChessPosition readChessPosition(Scanner sc){
+        try {
+            String s = sc.nextLine();
+            //Ignore the number
+            char column = s.charAt(0);
+            //Converting the text number to a integer number
+            int row = Integer.parseInt(s.substring(1));
+            return new ChessPosition(column,row);
+        } catch (RuntimeException e){
+            throw new InputMismatchException("Error reading Chess Position. Insert a valid value (values between a1 and h8).");
+        }
+    }
+
+    public static void clearScreen(){
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
     }
 
 }
